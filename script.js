@@ -18,6 +18,17 @@ score1El.textContent = 0;
 diceEl.classList.add('hidden');
 let playing = true;
 
+const init = function() {
+	score0El.textContent = 0;
+	score1El.textContent = 0;
+	current0El.textContent = 0;
+	current1El.textContent = 0;
+	player0El.classList.remove('player--winner');
+	player1El.classList.remove('player--winner');
+	player0El.classList.add('player--activer');
+	player1El.classList.remove('player--winner');
+};
+
 const scores = [ 0, 0 ]; // to store the scores
 let currentScore = 0;
 let activePlayer = 0;
@@ -30,8 +41,8 @@ const switchPlayer = function() {
 	player1El.classList.toggle('player--active');
 };
 
-//Rolling the dice functionality
-btnRoll.addEventListener('click', function() {
+//Rolldice
+const rollDice = function() {
 	if (playing) {
 		//1. generating a random dice roll
 		const dice = Math.trunc(Math.random() * 6) + 1;
@@ -50,7 +61,10 @@ btnRoll.addEventListener('click', function() {
 			switchPlayer();
 		}
 	}
-});
+};
+
+//Rolling the dice functionality
+btnRoll.addEventListener('click', rollDice);
 
 //Hold the result
 
@@ -75,3 +89,22 @@ btnHold.addEventListener('click', function() {
 	}
 });
 //reseting the game
+btnNew.addEventListener('click', function() {
+	init();
+	/* 	score0El.textContent = 0;
+	score1El.textContent = 0;
+	current0El.textContent = 0;
+	current1El.textContent = 0;
+	player0El.classList.remove('player--winner');
+	player1El.classList.remove('player--winner');
+	player0El.classList.add('player--activer');
+	player1El.classList.remove('player--winner'); */
+	/* document.getElementById(`current--${activePlayer}`).textContent = 0;
+	document.querySelector(`.player--${activePlayer}`).classList.remove('player--winner');
+	document.querySelector(`.player--${activePlayer}`).classList.add('player--active');
+	document.getElementById(`score--${activePlayer}`).textContent = 0;
+	diceEl.classList.add('hidden'); */
+	if (!playing) {
+		rollDice();
+	}
+});
